@@ -31,11 +31,7 @@
 
 ## 🍿 About the App
 
-**Watch It** is a small Flutter project for browsing a video library and watching YouTube videos inside the app. Choose a video, open its own player screen, and control playback without leaving the experience.
-
-Created as a practical exercise during the **Flutter Training Bootcamp at CS Academy**, the project explores video playback, controller lifecycle, navigation, and simple Material interfaces.
-
-The training exercise covered **`video_player`**, which remains in the project dependencies. The current player screen uses **`youtube_player_flutter`** to embed YouTube videos.
+**Watch It** is a simple Flutter app for browsing and watching YouTube videos. It was built during the **Flutter Training Bootcamp at CS Academy** to practice video playback and navigation.
 
 <a id="screenshots"></a>
 
@@ -66,27 +62,22 @@ From choosing a video to pressing play:
 
 ## ✨ Key Features
 
-- 🎬 **Video Library** — A simple list of videos with a dedicated play action on each card.
-- ▶️ **In-App Playback** — Open a YouTube video on its own screen with its title and player controls.
-- ⏯️ **Playback Controls** — Play, pause, and seek through the video.
-- ⛶ **Fullscreen Viewing** — Expand the video using the player's fullscreen control.
-- 🧭 **Easy Navigation** — Move from the library to a selected video and back again.
-- 💬 **Helpful Feedback** — Show a message when playback fails or the platform cannot use the player.
-- 📐 **Flexible Layout** — Scrollable screens with constrained content widths for small and larger displays.
+- 🎬 Browse a simple video library.
+- ▶️ Watch YouTube videos inside the app.
+- ⏯️ Play, pause, and skip to any point in a video.
+- ⛶ Switch to fullscreen.
+- 🧭 Move easily between the library and player.
 
 <a id="learning"></a>
 
 ## 📚 Learning Experience
 
-This project turned a video playback lesson into hands-on practice with:
+What I practiced:
 
-- Integrating video player packages into a Flutter application.
-- Creating a player controller and releasing its resources when the screen closes.
-- Passing a typed **`VideoItem`** between screens using named routes.
-- Separating video data, views, routing, and shared theme configuration.
-- Using clean YouTube video IDs without extra playlist or URL parameters.
-- Handling playback errors and providing a fallback for unsupported platforms.
-- Writing widget tests for navigation, large text, and missing route arguments.
+- Building simple Flutter screens.
+- Adding video playback.
+- Navigating between screens.
+- Organizing code and handling playback errors.
 
 <a id="tech-stack"></a>
 
@@ -95,43 +86,31 @@ This project turned a video playback lesson into hands-on practice with:
 | Purpose | Technology |
 | :--- | :--- |
 | UI & Language | Flutter, Dart |
-| Interface | Material widgets and a shared app theme |
+| Interface | Material Design |
 | YouTube Playback | `youtube_player_flutter` |
-| Training Package | `video_player` — included as part of the playback exercise |
-| Navigation | Flutter Navigator with named routes |
-| Testing | `flutter_test` |
+| Training Package | `video_player` |
+| Navigation | Flutter Navigator |
 
-Package versions are listed in [pubspec.yaml](pubspec.yaml).
+The current app uses `youtube_player_flutter`; `video_player` was part of the training exercise.
 
 <a id="getting-started"></a>
 
 ## 🚀 Getting Started
 
-### Prerequisites
-
-- Flutter with Dart `>=3.10.4 <4.0.0`.
-- A configured device, emulator, or Chrome browser.
-- An internet connection to install dependencies and load YouTube videos.
-
-### Run Locally
-
-From the project folder:
+Install Flutter with Dart `^3.10.4`, connect a supported device, and run these commands from the project folder:
 
 ```bash
 flutter pub get
-flutter devices
-flutter run -d <device-id>
+flutter run
 ```
 
-Replace `<device-id>` with an ID shown by `flutter devices`. Use `flutter doctor` to check your Flutter setup.
-
-To run in Chrome:
+Or run in Chrome:
 
 ```bash
 flutter run -d chrome
 ```
 
-The current screen enables the player on **Android, iOS, macOS, and web**. On **Windows and Linux**, it displays a platform guidance message instead of creating the player. Actual playback requires an internet connection and a video that allows embedding.
+Video playback requires internet and works on **Android, iOS, macOS, and web**. Windows and Linux show a message instead of the player.
 
 ## 🎞️ Make the Library Yours
 
@@ -144,39 +123,19 @@ VideoItem(
 ),
 ```
 
-For `https://www.youtube.com/watch?v=QvP9kZs3MJI`, use only **`QvP9kZs3MJI`** as the ID. Leave out parameters such as `&list=...` and `&index=...`.
+Use the YouTube video ID, not the full link.
 
 ## 🗂️ Project Structure
 
-The video feature keeps its data and presentation code together, while `core` contains shared app configuration.
-
 ```text
 lib/
-├── main.dart                         # Application entry point
-├── e_learning.dart                   # App configuration
-├── core/
-│   ├── constants/                    # Shared strings and constants
-│   ├── dependency_injection/         # Dependency setup
-│   ├── routing/                      # Routes and navigation
-│   └── themes/                       # Colors and theme
-└── features/
-    └── videos/
-        ├── data/                     # Video model and library entries
-        └── presentation/
-            ├── view_model/
-            └── views/                # Library and player screens
+├── main.dart               # App entry point
+├── e_learning.dart         # App setup
+├── core/                   # Shared settings, theme, and navigation
+└── features/videos/        # Video data and screens
 
-docs/screenshots/                     # App screenshots
-test/                                # Widget tests
+docs/screenshots/           # App screenshots
 ```
-
-## 🧪 Testing
-
-```bash
-flutter test
-```
-
-The widget tests cover opening the selected video and returning to the library, scrolling on a small screen with large text, and handling a video route without its required data. Live video playback needs a separate check on a supported device or browser.
 
 ---
 
