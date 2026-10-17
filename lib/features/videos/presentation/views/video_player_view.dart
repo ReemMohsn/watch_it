@@ -1,4 +1,4 @@
-import 'package:e_learning/features/videos/data/video_item.dart';
+import 'package:e_learning/features/videos/data/models/video_item.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:youtube_player_flutter/youtube_player_flutter.dart';
@@ -68,7 +68,7 @@ class _VideoPlayerViewState extends State<VideoPlayerView> {
                       return const Padding(
                         padding: EdgeInsets.only(top: 16),
                         child: Text(
-                          'This video could not be played. Check your connection or try another video.',
+                          'تعذر تشغيل الفيديو. تحققي من الاتصال أو جربي فيديو آخر.',
                         ),
                       );
                     },
@@ -78,7 +78,7 @@ class _VideoPlayerViewState extends State<VideoPlayerView> {
                     child: Padding(
                       padding: EdgeInsets.all(24),
                       child: Text(
-                        'To watch this video, open the app on Android, iOS, macOS or a web browser.',
+                        'لمشاهدة الفيديو افتحي التطبيق على Android أو iOS أو macOS أو متصفح الويب.',
                       ),
                     ),
                   ),
@@ -86,7 +86,7 @@ class _VideoPlayerViewState extends State<VideoPlayerView> {
                 Text(widget.video.name, style: theme.textTheme.titleLarge),
                 const SizedBox(height: 8),
                 Text(
-                  'YouTube video',
+                  'فيديو من قناة بسمة على YouTube',
                   style: theme.textTheme.bodyMedium?.copyWith(
                     color: theme.colorScheme.onSurfaceVariant,
                   ),

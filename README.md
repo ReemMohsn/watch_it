@@ -114,16 +114,10 @@ Video playback requires internet and works on **Android, iOS, macOS, and web**. 
 
 ## 🎞️ Make the Library Yours
 
-Add or update entries in [data_list.dart](lib/features/videos/data/data_list.dart):
-
-```dart
-VideoItem(
-  name: 'Video 1',
-  id: 'QvP9kZs3MJI',
-),
-```
-
-Use the YouTube video ID, not the full link.
+The home screen loads `playlists`; opening a playlist loads its linked rows from `youtube_videos`.
+Create both tables and their policies using [supabase_tafra_setup.sql](docs/supabase_tafra_setup.sql).
+Teachers can sign in, select an existing playlist or create one while saving a YouTube link, and delete videos. The SQL file also includes the atomic save function used by Flutter.
+The app shows an empty library when the table has no videos, and an error message if Supabase is not configured.
 
 ## 🗂️ Project Structure
 
