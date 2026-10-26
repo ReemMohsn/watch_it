@@ -16,6 +16,11 @@ abstract final class SupabaseErrorMapper {
     'same_password':
         AppStrings.pleaseChooseAPasswordDifferentFromYourCurrentOne,
     'otp_expired': AppStrings.theVerificationLinkOrCodeHasExpiredRequestANewOne,
+    'flow_state_expired':
+        AppStrings.theVerificationLinkOrCodeHasExpiredRequestANewOne,
+    'flow_state_not_found':
+        AppStrings.theVerificationLinkOrCodeHasExpiredRequestANewOne,
+    'bad_code_verifier': AppStrings.passwordRecoveryRequestMismatch,
     'session_not_found': AppStrings.pleaseSignInAgainToContinue,
     'session_expired': AppStrings.yourSessionHasExpiredPleaseSignInAgain,
     'refresh_token_not_found': AppStrings.pleaseSignInAgainToContinue,
@@ -53,10 +58,28 @@ abstract final class SupabaseErrorMapper {
     }
 
     if (error is AuthException) {
+      if (error is AuthPKCEGrantCodeExchangeError) {
+        return const Failure(
+          message: AppStrings.invalidPasswordRecoveryLink,
+          code: 'invalid_recovery_link',
+        );
+      }
+      if (error.message.contains(
+        'Code verifier could not be found in local storage',
+      )) {
+        return const Failure(
+          message: AppStrings.passwordRecoveryRequestMissing,
+          code: 'recovery_request_missing',
+        );
+      }
       final statusCode = int.tryParse(error.statusCode ?? '');
+      // Callback URL errors put error_code in statusCode in the Dart SDK.
+      final authCode = _authMessages.containsKey(error.statusCode)
+          ? error.statusCode
+          : error.code;
       final message = error is AuthRetryableFetchException
           ? AppStrings.unableToReachTheServicePleaseTryAgain
-          : _authMessages[error.code] ??
+          : _authMessages[authCode] ??
                 _httpMessage(
                   statusCode,
                   fallback:
@@ -65,7 +88,7 @@ abstract final class SupabaseErrorMapper {
 
       return Failure(
         message: message,
-        code: error.code ?? 'auth_error',
+        code: authCode ?? 'auth_error',
         statusCode: statusCode,
       );
     }

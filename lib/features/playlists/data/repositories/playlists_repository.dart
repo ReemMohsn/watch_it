@@ -11,4 +11,7 @@ class PlaylistsRepository {
 
   Future<Either<Failure, List<PlaylistModel>>> getPlaylists() =>
       requestHandler(_remote.getPlaylists);
+
+  Future<Either<Failure, void>> deletePlaylist(String playlistId) =>
+      requestHandler(() => _remote.deletePlaylist(playlistId));
 }

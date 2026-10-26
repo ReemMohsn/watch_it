@@ -20,3 +20,21 @@ class PlaylistsFailure extends PlaylistsState {
 
   final String errorMessage;
 }
+
+class DeletePlaylistLoading extends PlaylistsSuccess {
+  DeletePlaylistLoading({required super.playlists, required this.playlistId});
+
+  final String playlistId;
+}
+
+class DeletePlaylistSuccess extends PlaylistsSuccess {
+  DeletePlaylistSuccess({required super.playlists, required this.message});
+
+  final String message;
+}
+
+class DeletePlaylistFailure extends PlaylistsSuccess {
+  DeletePlaylistFailure({required super.playlists, required this.errorMessage});
+
+  final String errorMessage;
+}

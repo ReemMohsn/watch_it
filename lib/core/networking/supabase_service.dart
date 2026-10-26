@@ -1,4 +1,5 @@
 import 'package:e_learning/core/config/supabase_config.dart';
+import 'package:flutter/foundation.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
 class SupabaseService {
@@ -10,6 +11,10 @@ class SupabaseService {
       await Supabase.initialize(
         url: SupabaseConfig.url,
         publishableKey: SupabaseConfig.key,
+        authOptions: FlutterAuthClientOptions(
+          authFlowType: AuthFlowType.pkce,
+          detectSessionInUri: kIsWeb,
+        ),
       );
     } catch (_) {
       // Data requests report configuration errors through requestHandler.

@@ -7,12 +7,12 @@ class WelcomeCard extends StatelessWidget {
     super.key,
     required this.videoCount,
     required this.playlistCount,
-    required this.onTeacherTap,
+    this.onAddVideo,
   });
 
   final int videoCount;
   final int playlistCount;
-  final VoidCallback onTeacherTap;
+  final VoidCallback? onAddVideo;
 
   @override
   Widget build(BuildContext context) => Container(
@@ -43,16 +43,18 @@ class WelcomeCard extends StatelessWidget {
                 '$playlistCount قائمة تشغيل · $videoCount فيديو تعليمي',
                 style: const TextStyle(color: Colors.white70),
               ),
-              const SizedBox(height: 16),
-              OutlinedButton.icon(
-                onPressed: onTeacherTap,
-                style: OutlinedButton.styleFrom(
-                  foregroundColor: Colors.white,
-                  side: const BorderSide(color: Colors.white70),
+              if (onAddVideo != null) ...[
+                const SizedBox(height: 16),
+                OutlinedButton.icon(
+                  onPressed: onAddVideo,
+                  style: OutlinedButton.styleFrom(
+                    foregroundColor: Colors.white,
+                    side: const BorderSide(color: Colors.white70),
+                  ),
+                  icon: const Icon(Icons.add_rounded, size: 18),
+                  label: const Text(AppStrings.addVideo),
                 ),
-                icon: const Icon(Icons.lock_open_rounded, size: 18),
-                label: const Text('دخول المعلمة'),
-              ),
+              ],
             ],
           ),
         ),

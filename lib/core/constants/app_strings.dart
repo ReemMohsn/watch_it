@@ -3,6 +3,28 @@ abstract final class AppStrings {
 
   static const loggedInSuccessfully = 'تم تسجيل الدخول بنجاح';
   static const loggedOutSuccessfully = 'تم تسجيل الخروج';
+  static const signIn = 'تسجيل الدخول';
+  static const signOut = 'تسجيل الخروج';
+  static const addVideo = 'إضافة فيديو جديد';
+  static const forgotPassword = 'نسيت كلمة المرور؟';
+  static const passwordRecovery = 'استعادة كلمة المرور';
+  static const passwordRecoveryInstructions =
+      'أدخلي بريد حساب المعلمة لنرسل رابط إعادة تعيين كلمة المرور.';
+  static const sendPasswordResetLink = 'إرسال رابط الاستعادة';
+  static const passwordResetEmailSent =
+      'إذا كان البريد مرتبطًا بحساب، فسيصلك رابط استعادة كلمة المرور. تحققي من البريد والرسائل غير المرغوب فيها.';
+  static const resetPassword = 'تعيين كلمة مرور جديدة';
+  static const newPassword = 'كلمة المرور الجديدة';
+  static const savePassword = 'حفظ كلمة المرور';
+  static const passwordResetSuccessfully = 'تم تغيير كلمة المرور بنجاح';
+  static const unableToRecoverPassword =
+      'تعذر إكمال استعادة كلمة المرور. اطلبي رابطًا جديدًا وحاولي مجددًا.';
+  static const invalidPasswordRecoveryLink =
+      'رابط الاستعادة غير مكتمل. اطلبي رسالة جديدة وافتحي رابطها.';
+  static const passwordRecoveryRequestMissing =
+      'تعذر العثور على طلب الاستعادة على هذا الجهاز. اطلبي رابطًا جديدًا من التطبيق نفسه وافتحي أحدث رسالة.';
+  static const passwordRecoveryRequestMismatch =
+      'الرابط لا يطابق آخر طلب استعادة. اطلبي رابطًا جديدًا وافتحي أحدث رسالة.';
   static const noSessionReturned = 'تعذر إنشاء جلسة دخول. حاولي مرة أخرى.';
   static const supabaseNotConfigured = 'لم يتم إعداد اتصال Supabase بعد.';
   static const invalidYoutubeUrl = 'ضعي رابط YouTube صحيحًا';
@@ -16,6 +38,9 @@ abstract final class AppStrings {
   static const enterPlaylistName = 'اكتبي اسم القائمة الجديدة';
   static const noPlaylistVideos = 'لا توجد فيديوهات في هذه القائمة بعد.';
   static const deleteVideo = 'حذف الفيديو';
+  static const deletePlaylist = 'حذف القائمة';
+  static const playlistDeletedSuccessfully = 'تم حذف القائمة وفيديوهاتها';
+  static const cancel = 'إلغاء';
   static const noVideosYet = 'لم تُضف فيديوهات إلى المكتبة بعد.';
   static const tryAgain = 'إعادة المحاولة';
 
@@ -46,6 +71,9 @@ abstract final class AppStrings {
   static const passwordsDoNotMatch = 'كلمتا المرور غير متطابقتين';
 
   static String requiredField(String field) => '$field مطلوب';
+
+  static String confirmPlaylistDeletion(String name) =>
+      'هل تريدين حذف قائمة "$name" وجميع فيديوهاتها؟';
 
   static String requestFailed(Type type) => 'Request failed: $type';
 
