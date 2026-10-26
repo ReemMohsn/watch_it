@@ -3,7 +3,8 @@ import 'package:e_learning/features/videos/data/models/video_item.dart';
 import 'package:e_learning/features/videos/presentation/views/main_home_view.dart';
 import 'package:e_learning/features/videos/presentation/views/video_player_view.dart';
 import 'package:e_learning/features/auth/presentation/views/login_view.dart';
-import 'package:e_learning/features/auth/presentation/view_model/auth_cubit.dart';
+import 'package:e_learning/features/auth/presentation/views/forgot_password_view.dart';
+import 'package:e_learning/features/auth/presentation/views/reset_password_view.dart';
 import 'package:e_learning/features/videos/presentation/view_model/videos_cubit.dart';
 import 'package:e_learning/features/videos/presentation/views/add_video_view.dart';
 import 'package:e_learning/features/playlists/data/models/playlist_model.dart';
@@ -20,11 +21,8 @@ class AppRouter {
       case Routes.home:
         return MaterialPageRoute(
           settings: settings,
-          builder: (_) => MultiBlocProvider(
-            providers: [
-              BlocProvider(create: (_) => sl<AuthCubit>()),
-              BlocProvider(create: (_) => sl<PlaylistsCubit>()..getPlaylists()),
-            ],
+          builder: (_) => BlocProvider(
+            create: (_) => sl<PlaylistsCubit>()..getPlaylists(),
             child: const MainHomeView(),
           ),
         );
@@ -40,10 +38,19 @@ class AppRouter {
       case Routes.teacherLogin:
         return MaterialPageRoute(
           settings: settings,
-          builder: (_) => BlocProvider(
-            create: (_) => sl<AuthCubit>(),
-            child: const LoginView(),
-          ),
+          builder: (_) => const LoginView(),
+        );
+      case Routes.forgotPassword:
+        final email = settings.arguments;
+        return MaterialPageRoute(
+          settings: settings,
+          builder: (_) =>
+              ForgotPasswordView(initialEmail: email is String ? email : ''),
+        );
+      case Routes.resetPassword:
+        return MaterialPageRoute(
+          settings: settings,
+          builder: (_) => const ResetPasswordView(),
         );
       case Routes.addVideo:
         final initialPlaylist = settings.arguments;
@@ -66,13 +73,8 @@ class AppRouter {
         if (playlist is PlaylistModel) {
           return MaterialPageRoute(
             settings: settings,
-            builder: (_) => MultiBlocProvider(
-              providers: [
-                BlocProvider(create: (_) => sl<AuthCubit>()),
-                BlocProvider(
-                  create: (_) => sl<VideosCubit>()..getVideos(playlist.id),
-                ),
-              ],
+            builder: (_) => BlocProvider(
+              create: (_) => sl<VideosCubit>()..getVideos(playlist.id),
               child: PlaylistVideosView(playlist: playlist),
             ),
           );

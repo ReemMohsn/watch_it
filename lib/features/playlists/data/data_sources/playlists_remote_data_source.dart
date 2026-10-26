@@ -9,13 +9,7 @@ class PlaylistsRemoteDataSource {
   final SupabaseClient? _client;
 
   Future<List<PlaylistModel>> getPlaylists() async {
-    final client = _client;
-    if (client == null) {
-      throw const AppException(
-        message: AppStrings.supabaseNotConfigured,
-        code: 'supabase_not_configured',
-      );
-    }
+    final client = _requireClient();
     final playlists = <PlaylistModel>[];
     const pageSize = 100;
     var offset = 0;
@@ -32,5 +26,33 @@ class PlaylistsRemoteDataSource {
       offset += pageSize;
     }
     return playlists;
+  }
+
+  Future<void> deletePlaylist(String playlistId) async {
+    final client = _requireClient();
+    if (client.auth.currentUser == null) {
+      throw const AuthException(
+        AppStrings.pleaseSignInAgainToContinue,
+        code: 'session_not_found',
+      );
+    }
+    await client
+        .from('playlists')
+        .delete()
+        .eq('id', playlistId)
+        .select('id')
+        .single()
+        .timeout(const Duration(seconds: 20));
+  }
+
+  SupabaseClient _requireClient() {
+    final client = _client;
+    if (client == null) {
+      throw const AppException(
+        message: AppStrings.supabaseNotConfigured,
+        code: 'supabase_not_configured',
+      );
+    }
+    return client;
   }
 }

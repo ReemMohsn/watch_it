@@ -2,6 +2,7 @@ import 'package:e_learning/core/common/utils/app_validator.dart';
 import 'package:e_learning/core/constants/app_image.dart';
 import 'package:e_learning/core/constants/app_strings.dart';
 import 'package:e_learning/core/extensions/snack_bar_context_extension.dart';
+import 'package:e_learning/core/routing/routes.dart';
 import 'package:e_learning/core/themes/app_color.dart';
 import 'package:e_learning/features/auth/presentation/view_model/auth_cubit.dart';
 import 'package:e_learning/features/auth/presentation/view_model/auth_state.dart';
@@ -42,7 +43,7 @@ class _LoginViewState extends State<LoginView> {
   Widget build(BuildContext context) => BlocListener<AuthCubit, AuthState>(
     listener: (context, state) {
       if (state is LoginLoading) {
-        context.showLoadingDialog();
+        context.showLoadingDialog(false);
       } else if (state is LoginSuccess) {
         Navigator.of(context, rootNavigator: true).pop();
         context.showSuccessSnackBar(state.message);
@@ -100,10 +101,7 @@ class _LoginViewState extends State<LoginView> {
                         labelText: 'البريد الإلكتروني',
                         prefixIcon: Icon(Icons.email_outlined),
                       ),
-                      validator: (value) =>
-                          value == null || !value.contains('@')
-                          ? 'اكتبي بريدًا صحيحًا'
-                          : null,
+                      validator: AppValidator.email,
                     ),
                     const SizedBox(height: 14),
                     ValueListenableBuilder<bool>(
@@ -139,6 +137,16 @@ class _LoginViewState extends State<LoginView> {
                               ),
                             ),
                           ),
+                    ),
+                    Align(
+                      alignment: AlignmentDirectional.centerEnd,
+                      child: TextButton(
+                        onPressed: () => Navigator.of(context).pushNamed(
+                          Routes.forgotPassword,
+                          arguments: _email.text.trim(),
+                        ),
+                        child: const Text(AppStrings.forgotPassword),
+                      ),
                     ),
                     const SizedBox(height: 22),
                     ElevatedButton.icon(
